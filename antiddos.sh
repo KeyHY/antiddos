@@ -25,6 +25,7 @@
 /sbin/iptables -A INPUT -i eth0:2 -p tcp --syn -j syn-flood
 /sbin/iptables -A syn-flood -m limit --limit 1/s --limit-burst 4 -j RETURN
 /sbin/iptables -A syn-flood -j DROP
+/sbin/iptables -D INPUT -m conntrack --ctstate INVALID -j DROP
 /sbin/iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -m limit --limit 1/sec -j ACCEPT
 /sbin/iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK RST -m limit --limit 1/sec -j ACCEPT
 
